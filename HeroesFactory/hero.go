@@ -1,10 +1,23 @@
 package heroesfactory
 
+import "week67/StrategyPattern"
+
 type Hero struct {
 	heroType string
 	health   int
 	strength int
 	armor    int
+	strategy StrategyPattern.Strategy
+}
+
+func (h *Hero) setStrategy(strategy StrategyPattern.Strategy) {
+	h.strategy = strategy
+}
+
+func (h *Hero) executeAttack() {
+	if h.strategy != nil {
+		h.strategy.Attack()
+	}
 }
 
 func (h *Hero) setType(heroType string) {

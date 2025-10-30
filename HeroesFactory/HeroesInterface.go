@@ -1,6 +1,6 @@
 package heroesfactory
 
-type Heroes interface {
+type IHero interface {
 	setType(string)
 	setHealth(int)
 	setStrength(int)

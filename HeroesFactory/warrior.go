@@ -6,11 +6,11 @@ type Warrior struct {
 
 func newWarrior() IHero {
 	return &Warrior{
-		Warrior: Warrior{
+		Hero: Hero{
 			heroType: "Warrior",
-			health:   100,
-			strength: 90,
-			armor:    100,
+			health:   150,
+			strength: 100,
+			armor:    80,
 		},
 	}
 }
