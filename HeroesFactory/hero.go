@@ -7,10 +7,10 @@ type Hero struct {
 	health   int
 	strength int
 	armor    int
-	strategy StrategyPattern.Strategy
+	strategy strategypattern.Strategy
 }
 
-func (h *Hero) setStrategy(strategy StrategyPattern.Strategy) {
+func (h *Hero) setStrategy(strategy strategypattern.Strategy) {
 	h.strategy = strategy
 }
 

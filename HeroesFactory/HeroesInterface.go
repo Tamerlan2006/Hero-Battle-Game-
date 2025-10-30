@@ -1,5 +1,7 @@
 package heroesfactory
 
+import "week67/StrategyPattern"
+
 type IHero interface {
 	setType(string)
 	setHealth(int)
@@ -9,4 +11,6 @@ type IHero interface {
 	getHealth() int
 	getStrength() int
 	getArmor() int
+	setStrategy(strategypattern.Strategy)
+	executeAttack()
 }

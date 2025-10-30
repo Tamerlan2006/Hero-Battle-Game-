@@ -1,5 +1,7 @@
 package heroesfactory
 
+import "week67/StrategyPattern"
+
 type Archer struct {
 	Hero
 }
@@ -11,6 +13,7 @@ func newArcher() IHero {
 			health:   80,
 			strength: 120,
 			armor:    60,
+			strategy: &strategypattern.Ranged{},
 		},
 	}
 }
