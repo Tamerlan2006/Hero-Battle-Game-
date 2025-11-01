@@ -11,9 +11,10 @@ import (
 func main() {
 	game := gameui.NewGame()
 	ebiten.SetWindowSize(800, 600)
-	ebiten.SetWindowTitle("Hero Battle Game — Mortal Kombat Style")
+	ebiten.SetWindowTitle("Hero Battle Game")
 
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
 }
+
