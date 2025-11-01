@@ -1,14 +1,18 @@
 package heroesfactory
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func GetHeroes(heroType string) (IHero, error) {
-	if heroType == "Warrior" {
+	switch heroType {
+	case "Warrior":
 		return newWarrior(), nil
-	} else if heroType == "Mage" {
+	case "Mage":
 		return newMage(), nil
-	} else if heroType == "Archer" {
+	case "Archer":
 		return newArcher(), nil
+	default:
+		return nil, fmt.Errorf("unknown hero type: %s", heroType)
 	}
-	return nil, fmt.Errorf("unknown hero type: %s", heroType)
 }

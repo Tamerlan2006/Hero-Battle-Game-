@@ -1,6 +1,6 @@
 package heroesfactory
 
-import "week67/StrategyPattern"
+import strategypattern "week67/StrategyPattern"
 
 type Warrior struct {
 	Hero

@@ -1,16 +1,24 @@
 package heroesfactory
 
-import "week67/StrategyPattern"
+import (
+	observerpattern "week67/ObserverPattern"
+	strategypattern "week67/StrategyPattern"
+)
 
 type IHero interface {
-	setType(string)
-	setHealth(int)
-	setStrength(int)
-	setArmor(int)
-	getType() string
-	getHealth() int
-	getStrength() int
-	getArmor() int
-	setStrategy(strategypattern.Strategy)
-	executeAttack()
+	SetType(string)
+	SetHealth(int)
+	SetStrength(int)
+	SetArmor(int)
+	GetType() string
+	GetHealth() int
+	GetStrength() int
+	GetArmor() int
+
+	SetStrategy(strategypattern.Strategy)
+	ExecuteAttack()
+
+	RegisterObserver(observerpattern.Observer)
+	UnregisterObserver(observerpattern.Observer)
+	NotifyObservers(string)
 }
