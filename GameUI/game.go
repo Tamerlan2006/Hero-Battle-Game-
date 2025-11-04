@@ -36,7 +36,7 @@ const (
 	animAttack
 )
 
-// Простая анимация (без ganim8)
+
 type Animation struct {
 	sheet       *ebiten.Image
 	frameCount  int
@@ -124,7 +124,6 @@ func NewGame() *Game {
 	g.loadArena()
 	g.loadHeroSheets()
 
-	// Анимации: 2 кадра (idle | attack)
 	g.leftAnim = NewAnimation(g.leftSheet, 2, 300*time.Millisecond)
 	g.rightAnim = NewAnimation(g.rightSheet, 2, 300*time.Millisecond)
 
@@ -140,7 +139,6 @@ func (g *Game) loadSounds() {
 		if err != nil {
 			return nil
 		}
-		// Фикс: []byte → io.Reader
 		stream, err := vorbis.DecodeWithSampleRate(44100, bytes.NewReader(data))
 		if err != nil {
 			return nil
@@ -190,7 +188,7 @@ func (g *Game) loadHeroSheets() {
 
 func (g *Game) Update() error {
 	now := time.Now()
-	g.prevTime = now // можно оставить для будущих нужд
+	g.prevTime = now 
 
 	switch g.state {
 	case "menu":
@@ -203,11 +201,9 @@ func (g *Game) Update() error {
 		}
 	}
 
-	// Обновляем анимации (по внутреннему таймеру)
 	g.leftAnim.Update()
 	g.rightAnim.Update()
 
-	// Shake
 	if time.Since(g.shakeTime) < 200*time.Millisecond {
 		g.shakeOffset = rand.Float64()*4 - 2
 	} else {
@@ -303,7 +299,6 @@ func (g *Game) checkRunAndAttack() {
 		g.performAttack(g.rightHero, g.leftHero)
 	}
 
-	// attack → idle
 	if g.leftState == animAttack && time.Since(g.runTimer) > 600*time.Millisecond {
 		g.leftState = animIdle
 		g.leftAnim = NewAnimation(g.leftSheet, 1, 300*time.Millisecond)
@@ -356,7 +351,6 @@ func (g *Game) endFight() {
 func (g *Game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{10, 10, 25, 255})
 
-	// Фон
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Scale(float64(screenW)/float64(g.arenaImg.Bounds().Dx()),
 		float64(screenH)/float64(g.arenaImg.Bounds().Dy()))
@@ -365,23 +359,19 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	shakeX := g.shakeOffset
 	shakeY := g.shakeOffset
 
-	// LEFT
 	leftOpts := &ebiten.DrawImageOptions{}
 	leftOpts.GeoM.Scale(2, 2)
 	leftOpts.GeoM.Translate(150+shakeX, 320+shakeY)
 	g.leftAnim.Draw(screen, leftOpts)
 
-	// RIGHT (зеркалим)
 	rightOpts := &ebiten.DrawImageOptions{}
 	rightOpts.GeoM.Scale(-2, 2)
 	rightOpts.GeoM.Translate(650+shakeX, 320+shakeY)
 	g.rightAnim.Draw(screen, rightOpts)
 
-	// HP
 	g.drawHP(screen, g.leftHero, 100, 50, true)
 	g.drawHP(screen, g.rightHero, 500, 50, false)
 
-	// UI
 	switch g.state {
 	case "menu":
 		ebitenutil.DebugPrint(screen,
